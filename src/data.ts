@@ -12,69 +12,77 @@ export const CATEGORIES: { id: Category; name: string; icon: string; description
 ];
 
 export const GOV_SERVICES: ServiceItem[] = [
-  { id: '1', title: 'Birth Certificate', description: 'Request a digital copy of your birth certificate.', icon: 'File', category: 'government' },
-  { id: '2', title: 'Marriage Permit', description: 'Information and application for marriage permits.', icon: 'ClipboardCheck', category: 'government' },
-  { id: '3', title: 'Local Taxes', description: 'Pay your municipal taxes online.', icon: 'CreditCard', category: 'government' },
+  { id: '1', title: 'Birth Certificate', description: 'Request a digital copy of your birth certificate in Salé.', icon: 'File', category: 'government' },
+  { id: '2', title: 'Marriage Permit', description: 'Information and application for marriage permits in Salé.', icon: 'ClipboardCheck', category: 'government' },
+  { id: '3', title: 'Local Taxes', description: 'Pay your municipal taxes for Salé online.', icon: 'CreditCard', category: 'government' },
 ];
 
 export const TRANSPORT_ROUTES: Route[] = [
-  { id: 'b1', type: 'bus', line: 'Bus L1', from: 'Sidi Bouzid', to: 'City Center', schedule: ['08:00', '09:00', '10:00'], eta: '5 mins' },
-  { id: 't1', type: 'taxi', line: 'Grand Taxi', from: 'El Jadida', to: 'Casablanca', schedule: ['On Demand'], eta: 'Ready' },
+  { id: 'b1', type: 'bus', line: 'Tramway T1', from: 'Hay Karima', to: 'University Terminal', schedule: ['06:00', '07:00', '08:00'], eta: '4 mins' },
+  { id: 't1', type: 'taxi', line: 'Grand Taxi', from: 'Salé El Jadida', to: 'Rabat City', schedule: ['On Demand'], eta: 'Ready' },
 ];
 
 export const EVENTS: EventItem[] = [
   { 
     id: 'e1', 
-    title: 'Jawhara Festival', 
+    title: 'Mawazine Festival - Salé Stage', 
     image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800', 
-    date: 'Aug 15-20', 
-    location: 'El Jadida Beach',
-    description: 'International music and arts festival celebrate Moroccan heritage.'
+    date: 'Jun 20-28', 
+    location: 'Salé Waterfront',
+    description: 'International music festival featuring legendary artists on the Salé stage.'
   },
   { 
     id: 'e2', 
-    title: 'Art Exhibition', 
+    title: 'Bouregreg Art Fair', 
     image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&q=80&w=800', 
-    date: 'Jun 10', 
-    location: 'Cité Portugaise',
-    description: 'Local artists showcasing contemporary Moroccan works.'
+    date: 'Jul 05', 
+    location: 'Marina de Salé',
+    description: 'Local artisans and contemporary painters showcasing their work by the Marina.'
+  },
+  {
+    id: 'e3',
+    title: 'Salé Candlelight Procession',
+    image: 'https://images.unsplash.com/photo-1514525253361-b83f859b73c0?auto=format&fit=crop&q=80&w=800',
+    date: 'Mouloud',
+    location: 'Medina of Salé',
+    description: 'The historic annual candle procession of Salé celebrating spiritual heritage.'
   }
 ];
 
 export const SOCIAL_POSTS: Post[] = [
   { 
     id: 'p1', 
-    author: 'Mehdi Alami', 
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mehdi', 
-    content: 'The new promenade at Mazagan is looking amazing! Great spot for evening walks.', 
-    likes: 42, 
-    comments: 5, 
-    timestamp: '2h ago' 
+    author: 'Yassir Mansouri', 
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Yassir', 
+    content: 'The new tram extension is making my commute from Salé El Jadida so much easier!', 
+    likes: 56, 
+    comments: 12, 
+    timestamp: '1h ago' 
   },
   { 
     id: 'p2', 
-    author: 'Sara Benani', 
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sara', 
-    content: 'Quick question: Is the municipal library open on Sundays?', 
-    likes: 12, 
-    comments: 8, 
-    timestamp: '5h ago' 
+    author: 'Amina Radi', 
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Amina', 
+    content: 'Does anyone know the opening hours for the Grand Mosque library?', 
+    likes: 24, 
+    comments: 4, 
+    timestamp: '4h ago' 
   },
 ];
 
 export const HEALTH_SERVICES: ServiceItem[] = [
-  { id: 'h1', title: 'Find a Doctor', description: 'Schedule appointment with top specialists.', icon: 'Stethoscope', category: 'healthcare' },
-  { id: 'h2', title: 'Pharmacies', description: 'Find 24/7 pharmacies on duty.', icon: 'Pill', category: 'healthcare' },
-  { id: 'h3', title: 'Medical History', description: 'Access your records and lab results.', icon: 'Activity', category: 'healthcare' },
+  { id: 'h1', title: 'Find a Specialist', description: 'Schedule appointment with doctors in Salé.', icon: 'Stethoscope', category: 'healthcare' },
+  { id: 'h2', title: 'Night Pharmacies', description: 'Find pharmacies on duty tonight in Salé.', icon: 'Pill', category: 'healthcare' },
+  { id: 'h3', title: 'Medical Records', description: 'Access your health documents securely.', icon: 'Activity', category: 'healthcare' },
 ];
 
 export const EDU_CENTERS: ServiceItem[] = [
-  { id: 'ed1', title: 'Chouaib Doukkali University', description: 'Official student portal and registrations.', icon: 'School', category: 'education' },
-  { id: 'ed2', title: 'French Institute', description: 'Language courses and cultural library.', icon: 'BookOpen', category: 'education' },
-  { id: 'ed3', title: 'Coding Bootcamp', description: 'New tech training center in Mazagan.', icon: 'Code', category: 'education' },
+  { id: 'ed1', title: 'Mohammed V University', description: 'Salé faculties and student services.', icon: 'School', category: 'education' },
+  { id: 'ed2', title: 'ENSAM Salé', description: 'Engineering school portal.', icon: 'BookOpen', category: 'education' },
+  { id: 'ed3', title: 'Language Institute', description: 'English and French courses in Salé El Jadida.', icon: 'Code', category: 'education' },
 ];
 
 export const PRODUCTS: Product[] = [
-  { id: 'pr1', name: 'Handmade Tagine', price: 150, image: 'https://images.unsplash.com/photo-1582106245687-cbb466a9f07f?auto=format&fit=crop&q=80&w=400', description: 'Traditional ceramic tagine made by local Safi artisans.', category: 'Kitchen' },
-  { id: 'pr2', name: 'Leather Satchel', price: 450, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=400', description: 'Genuine leather satchel from the old medina.', category: 'Fashion' },
+  { id: 'pr1', name: 'Salé Traditional Pottery', price: 120, image: 'https://images.unsplash.com/photo-1582106245687-cbb466a9f07f?auto=format&fit=crop&q=80&w=400', description: 'Authentic pottery from the Oulja artisan complex.', category: 'Decor' },
+  { id: 'pr2', name: 'Hand-woven Berber Rug', price: 1200, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=400', description: 'Traditional rugs woven by local Salé cooperatives.', category: 'Home' },
 ];

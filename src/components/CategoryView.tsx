@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, MapPin, Clock, Calendar, CheckCircle2 } from 'lucide-react';
-import { Category, ServiceItem, Route, Product } from '../types';
+import { ArrowLeft, MapPin, Clock, Calendar, CheckCircle2, Loader2 } from 'lucide-react';
+import { Category, ServiceItem, Route, Product, EventItem } from '../types';
 import { GOV_SERVICES, TRANSPORT_ROUTES, HEALTH_SERVICES, EDU_CENTERS, PRODUCTS, CATEGORIES, EVENTS } from '../data';
 import * as LucideIcons from 'lucide-react';
+import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
+import { db } from '../firebase';
+import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 
 interface CategoryViewProps {
   categoryId: Category;
@@ -13,48 +16,79 @@ interface CategoryViewProps {
 export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId, onBack }) => {
   const categoryInfo = CATEGORIES.find(c => c.id === categoryId);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [remoteItems, setRemoteItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const collectionName = categoryId.toLowerCase() + 's';
+    const q = query(collection(db, collectionName), orderBy('createdAt', 'desc'));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setRemoteItems(items);
+      setLoading(false);
+    }, (err) => {
+      handleFirestoreError(err, OperationType.GET, collectionName);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [categoryId]);
 
   const renderContent = () => {
+    const getCombinedItems = (local: any[]) => {
+      // In a real app, you might want to filter or unique these
+      return [...remoteItems, ...local];
+    };
+
     switch (categoryId) {
-      case 'government':
+      case 'government': {
+        const items = getCombinedItems(GOV_SERVICES);
         return (
-          <div className="flex flex-col gap-4">
-            {GOV_SERVICES.map(service => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {items.map(service => (
               <ServiceCard key={service.id} item={service} onClick={() => setSelectedItem(service)} />
             ))}
           </div>
         );
-      case 'healthcare':
+      }
+      case 'healthcare': {
+        const items = getCombinedItems(HEALTH_SERVICES);
         return (
-          <div className="flex flex-col gap-4">
-            {HEALTH_SERVICES.map(service => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {items.map(service => (
               <ServiceCard key={service.id} item={service} onClick={() => setSelectedItem(service)} />
             ))}
           </div>
         );
-      case 'education':
+      }
+      case 'education': {
+        const items = getCombinedItems(EDU_CENTERS);
         return (
-          <div className="flex flex-col gap-4">
-            {EDU_CENTERS.map(service => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {items.map(service => (
               <ServiceCard key={service.id} item={service} onClick={() => setSelectedItem(service)} />
             ))}
           </div>
         );
+      }
       case 'culture':
-      case 'entertainment':
+      case 'entertainment': {
+        const items = getCombinedItems(EVENTS);
         return (
-          <div className="flex flex-col gap-4">
-            {EVENTS.map(event => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map(event => (
               <div 
                 key={event.id}
                 onClick={() => setSelectedItem(event)}
-                className="bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm"
+                className="bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
-                <img src={event.image} className="h-40 w-full object-cover" />
+                <img src={event.image} className="h-48 w-full object-cover" />
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-bold text-brand-secondary bg-orange-50 px-2 py-0.5 rounded-full uppercase tracking-widest">{event.date}</span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@ {event.location}</span>
+                    <span className="text-[10px] font-bold text-brand-secondary bg-orange-50 px-2 py-0.5 rounded-full uppercase tracking-widest">{event.date || 'TBA'}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@ {event.location || 'Salé'}</span>
                   </div>
                   <h4 className="text-lg font-display font-bold text-slate-800">{event.title}</h4>
                 </div>
@@ -62,27 +96,30 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId, onBack }
             ))}
           </div>
         );
+      }
       case 'transportation':
         return (
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {TRANSPORT_ROUTES.map(route => (
               <RouteCard key={route.id} route={route} onClick={() => setSelectedItem(route)} />
             ))}
           </div>
         );
-      case 'ecommerce':
+      case 'ecommerce': {
+        const items = getCombinedItems(PRODUCTS);
         return (
-          <div className="grid grid-cols-2 gap-4">
-            {PRODUCTS.map(product => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {items.map(product => (
               <ProductCard key={product.id} product={product} onClick={() => setSelectedItem(product)} />
             ))}
           </div>
         );
+      }
       default:
         return (
           <div className="py-20 text-center text-slate-400">
             <LucideIcons.Construction size={48} className="mx-auto mb-4 opacity-20" />
-            <p className="font-medium">This module is coming soon to El Jadida.</p>
+            <p className="font-medium">This module is coming soon to Salé.</p>
           </div>
         );
     }

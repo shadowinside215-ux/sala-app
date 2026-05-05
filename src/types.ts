@@ -1,15 +1,16 @@
 export type Category = 'government' | 'transportation' | 'healthcare' | 'education' | 'culture' | 'social' | 'ecommerce' | 'entertainment';
 
 export interface ServiceItem {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   icon: string;
   category: Category;
+  image?: string;
 }
 
 export interface EventItem {
-  id: string;
+  id?: string;
   title: string;
   image: string;
   date: string;
@@ -18,18 +19,18 @@ export interface EventItem {
 }
 
 export interface Post {
-  id: string;
+  id?: string;
   author: string;
   avatar: string;
   content: string;
   image?: string;
   likes: number;
   comments: number;
-  timestamp: string;
+  timestamp: string | any;
 }
 
 export interface Product {
-  id: string;
+  id?: string;
   name: string;
   price: number;
   image: string;
@@ -38,7 +39,7 @@ export interface Product {
 }
 
 export interface Route {
-  id: string;
+  id?: string;
   type: 'bus' | 'taxi';
   line: string;
   from: string;

@@ -3,9 +3,9 @@ import { MapPin, Star, MoreHorizontal } from 'lucide-react';
 
 export const ExploreView: React.FC = () => {
   const places = [
-    { name: 'Cité Portugaise', category: 'Historic Site', rating: 4.8, img: 'https://images.unsplash.com/photo-1596740645062-870634676646?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Sidi Bouzid Beach', category: 'Beach', rating: 4.7, img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Mazagan Golf', category: 'Leisure', rating: 4.9, img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Medina of Salé', category: 'Historic Site', rating: 4.8, img: 'https://images.unsplash.com/photo-1596740645062-870634676646?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Marina de Salé', category: 'Leisure', rating: 4.9, img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Bab el-Mrissa', category: 'Monument', rating: 4.7, img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=400' },
   ];
 
   return (

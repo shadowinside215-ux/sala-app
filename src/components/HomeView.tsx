@@ -12,28 +12,28 @@ export const HomeView: React.FC<HomeViewProps> = ({ onCategorySelect }) => {
   return (
     <div className="flex flex-col gap-8 pb-24">
       {/* Featured Banner */}
-      <section className="px-6">
-        <div className="relative h-48 rounded-3xl overflow-hidden shadow-xl shadow-brand-primary/10">
+      <section className="px-6 max-w-4xl mx-auto w-full">
+        <div className="relative h-48 lg:h-80 rounded-3xl overflow-hidden shadow-xl shadow-brand-primary/10">
           <img 
             src="https://images.unsplash.com/photo-1539112521612-58e578f7e217?auto=format&fit=crop&q=80&w=1200" 
             className="absolute inset-0 w-full h-full object-cover"
-            alt="El Jadida Coastline"
+            alt="Salé Coastline"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 lg:p-12">
             <span className="text-brand-secondary text-[10px] font-bold uppercase tracking-widest mb-1">Featured Event</span>
-            <h2 className="text-white text-lg font-bold font-display leading-tight mb-2">Summer Beats Festival at the Cité Portugaise</h2>
-            <button className="bg-white text-black text-xs font-bold px-4 py-2 rounded-full w-fit">Book Now</button>
+            <h2 className="text-white text-lg lg:text-3xl font-bold font-display leading-tight mb-2">Mawazine Festival - Stage Salé is back!</h2>
+            <button className="bg-white text-black text-xs font-bold px-4 py-2 lg:px-8 lg:py-3 lg:text-sm rounded-full w-fit hover:bg-slate-100 transition-colors">Book Now</button>
           </div>
         </div>
       </section>
 
       {/* Categories Grid */}
-      <section className="px-6">
+      <section className="px-6 max-w-4xl mx-auto w-full">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-display font-bold text-slate-800">Explore Services</h3>
           <button className="text-brand-primary text-xs font-semibold">View All</button>
         </div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
           {CATEGORIES.map((cat, idx) => {
             const IconComponent = (LucideIcons as any)[cat.icon];
             return (

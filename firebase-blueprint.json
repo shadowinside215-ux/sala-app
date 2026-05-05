@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "Local government, health, or education services",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "category": { "type": "string", "enum": ["government", "transportation", "healthcare", "education", "culture", "social", "ecommerce", "entertainment"] },
+        "image": { "type": "string", "format": "uri" },
+        "author": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "category", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "E-commerce products from local artisans or shops",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "category": { "type": "string" },
+        "author": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "image", "createdAt"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "Local cultural or social events",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "author": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "date", "location", "image", "createdAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Community social posts",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" },
+        "author": { "type": "string" },
+        "avatar": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "likes": { "type": "number" },
+        "comments": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["content", "author", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Collection of local services"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of local products"
+    },
+    "/events/{eventId}": {
+      "schema": "Event",
+      "description": "Collection of local events"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Collection of community social posts"
+    }
+  }
+}

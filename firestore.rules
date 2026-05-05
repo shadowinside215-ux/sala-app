@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'dragonballsam86@gmail.com' ||
+        request.auth.token.email_verified == true
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity Validations
+    function isValidService(data) {
+      return data.keys().hasAll(['title', 'description', 'category']) &&
+             data.title is string && data.title.size() <= 200;
+    }
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['name', 'price', 'image']) &&
+             data.name is string && data.price is number;
+    }
+
+    function isValidEvent(data) {
+      return data.keys().hasAll(['title', 'date', 'location', 'image']) &&
+             data.title is string;
+    }
+
+    function isValidPost(data) {
+      return data.keys().hasAll(['content', 'author']) &&
+             data.content is string;
+    }
+
+    // Collection Rules
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin() || (isSignedIn() && existing().author == request.auth.uid);
+    }
+  }
+}
